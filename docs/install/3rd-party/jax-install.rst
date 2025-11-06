@@ -1,23 +1,36 @@
 .. meta::
-  :description: JAX on ROCm
-  :keywords: installation instructions, building, JAX, AMD, ROCm
+  :description: Install JAX on ROCm
+  :keywords: installation, docker, JAX, deep learning, AMD, ROCm
 
-***********
-JAX on ROCm
-***********
+*************************************************************************************
+JAX on ROCm installation
+*************************************************************************************
 
-This directory provides setup instructions and necessary files to build, test, and run JAX with ROCm support in a Docker environment, suitable for both runtime and CI workflows. Explore the following methods to use or build JAX on ROCm.
+`JAX <https://docs.jax.dev/en/latest/notebooks/thinking_in_jax.html>`__ is a library
+for array-oriented numerical computation (similar to NumPy), with automatic differentiation
+and just-in-time (JIT) compilation to enable high-performance machine learning research.
 
-For hardware, software, and third-party framework compatibility between ROCm and JAX, see the following resources:
+This topic covers setup instructions and the necessary files to build, test, and run
+JAX with ROCm support in a Docker environment. To learn more about JAX on ROCm,
+including its use cases, recommendations, as well as hardware and software compatibility,
+see :doc:`rocm:compatibility/ml-compatibility/jax-compatibility`.
 
-* :ref:`system-requirements`
+Install JAX on ROCm
+======================================================================================
 
-* :doc:`rocm:compatibility/ml-compatibility/jax-compatibility`
+To install JAX on ROCm, you have the following options:
 
-Using a prebuilt Docker image
-===========================================
+* :ref:`using-docker-with-jax-pre-installed` **(recommended)**
+* :ref:`build-jax-rocm-docker-image`
+* :ref:`install-jax-rocm-custom-container`
+* :ref:`build-jax-from-source`
 
-The ROCm JAX team provides prebuilt Docker images, which is the simplest way to use JAX on ROCm. These images are available on Docker Hub and come with JAX configured for ROCm.
+.. _using-docker-with-jax-pre-installed:
+
+Use a prebuilt Docker image with JAX preinstalled
+--------------------------------------------------------------------------------------
+The ROCm JAX team provides prebuilt Docker images, which is the simplest way to use JAX on ROCm.
+These images are available on Docker Hub and come with JAX configured for ROCm.
 
 1. To pull the latest ROCm JAX Docker image, run:
 
@@ -57,7 +70,7 @@ The ROCm JAX team provides prebuilt Docker images, which is the simplest way to 
 .. _jax-docker-support:
 
 Docker image support
---------------------
+--------------------------------------------------------------------------------------
 
 AMD validates and publishes ready-made JAX images with ROCm backends on Docker
 Hub. The following Docker image tags and associated inventories are validated
@@ -97,8 +110,10 @@ For ``jax-community`` images, see `rocm/jax-community <https://hub.docker.com/r/
             on `Docker Hub
             <https://hub.docker.com/layers/rocm/jax/rocm7.0-jax0.6.0-py3.10/images/sha256-a75d73f696926c42434fa8910037e104b2d46211cf72a7f66f052a75e61f18f5>`__.
 
-Using a ROCm base Docker image and installing JAX
-=================================================
+.. _build-jax-rocm-docker-image:
+
+Use a ROCm base Docker image to install JAX
+--------------------------------------------------------------------------------------
 
 If you prefer to use the ROCm Ubuntu image or already have a ROCm Ubuntu container, follow these steps to install JAX in the container.
 
@@ -154,8 +169,10 @@ If you prefer to use the ROCm Ubuntu image or already have a ROCm Ubuntu contain
 
 6. Verify the installation of ROCm JAX. See :ref:`jax-verify-installation`.
 
+.. _install-jax-rocm-custom-container:
+
 Install JAX on bare-metal or a custom container
-===============================================
+--------------------------------------------------------------------------------------
 
 Follow these steps if you prefer to install ROCm manually on your host system or in a custom container.
 
@@ -230,66 +247,24 @@ Follow these steps if you prefer to install ROCm manually on your host system or
 
       [0 1 2 3 4]
 
-Build ROCm JAX from source
-==========================
-
-Follow these steps to build JAX with ROCm support from source.
-
-1. Clone the ROCm-specific fork of JAX with the desired branch:
-
-   .. code-block:: bash
-
-      git clone https://github.com/ROCm/jax -b <branch_name>
-      cd jax
-
-2. Install build dependencies and set up virtual environment:
-
-   .. code-block:: bash
-
-      # Install build dependencies
-      pip install -r build/requirements.txt
-
-      # Create and activate virtual environment (recommended)
-      python -m venv .venv
-      source .venv/bin/activate
-
+.. _build-jax-from-source:
 .. _build-jax-wheels:
 
-3. Run the following command to build the necessary wheels:
+Build JAX from source
+--------------------------------------------------------------------------------------
 
-   .. code-block:: bash
+The `<https://github.com/ROCm/rocm-jax>`__ repository contains sources for the ROCm
+plugin for JAX as well as Dockerfiles used to build the AMD ``rocm/jax`` images.
+For the most up-to-date instructions, refer directly to the instructions in the repository:
 
-      # Method 1: Using build.py
-      python3 ./build/build.py build --wheels=jaxlib,jax-rocm-plugin,jax-rocm-pjrt \
-          --rocm_version=70 --rocm_path=/opt/rocm-[version]
+- See `Quick build <https://github.com/ROCm/ROCm-jax?tab=readme-ov-file#quickbuild>`__ for concise high-level steps.
 
-      # Method 2: Using make (alternative)
-      (cd jax_rocm_plugin && make clean dist)
-
-   This will generate three wheels in the ``dist/`` directory:
-
-   - ``jaxlib`` (generic, device agnostic library)
-   - ``jax-rocm-plugin`` (ROCm-specific plugin)
-   - ``jax-rocm-pjrt`` (ROCm-specific runtime)
-
-4. Install the custom JAX wheels.
-
-   .. code-block:: bash
-
-      # Ensure virtual environment is activated if using one
-      source .venv/bin/activate
-      python3 setup.py develop --user && pip3 -m pip install dist/*.whl
-
-Simplified build script
------------------------
-
-For a streamlined build process, consider using the ``jax/build/rocm/dev_build_rocm.py`` script. See
-`<https://github.com/rocm/jax/tree/main/build/rocm>`__ for more information.
+- See `Building <https://github.com/ROCm/rocm-jax/blob/master/BUILDING.md#building>`__ for more in-depth build instructions and troubleshooting suggestions.
 
 .. _jax-verify-installation:
 
-Testing your JAX installation with ROCm
-=======================================
+Test the JAX installation
+======================================================================================
 
 After launching the container, test whether JAX detects ROCm devices as expected:
 
