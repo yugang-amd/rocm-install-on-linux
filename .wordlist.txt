@@ -40,6 +40,7 @@ IIO
 IRQs
 json
 KMD
+libdw
 MACVTAP
 megablocks
 microarchitectures
@@ -58,6 +59,7 @@ Pytorch
 PyPI
 radeon
 Repo
+RHCK
 rhel
 rl
 rocHPL
@@ -74,12 +76,12 @@ SMCi
 SRIOV
 SVM
 SuperMicro
-Taichi
 tbody
 td
 thead
 TensorFlowVersion
 TVM
+UEK
 untar
 vCPU
 verl

@@ -74,6 +74,7 @@ your operating system to ensure you're able to download and install packages.
             .. tab-set::
 
                 {% for os_version in config.html_context['rhel_version_numbers'] %}
+                {% set os_major, _  = os_version.split('.') %}
                 .. tab-item:: {{ os_version }}
                     :sync: {{ os_version }}
 
@@ -83,7 +84,7 @@ your operating system to ensure you're able to download and install packages.
                     .. code-block:: shell
                         :substitutions:
 
-                        {% if os_version == '10.0' -%}
+                        {% if os_major == '10' -%}
                         subscription-manager register --username <username> --password <password>
                         {%- else -%}
                         subscription-manager register --username <username> --password <password>
@@ -152,7 +153,12 @@ This is a requirement for newer hardware on older versions of RHEL, SLES, or OL.
                     .. code-block:: bash
                         :substitutions:
 
+                        {% if os_version == '10.1' -%}
+                        sudo dnf update redhat-release
                         sudo dnf update --releasever={{ os_version }} --exclude=\*release\*
+                        {%- else -%}
+                        sudo dnf update --releasever={{ os_version }} --exclude=\*release\*
+                        {%- endif %}
                 {% endfor %}
 
         .. tab-item:: Oracle Linux

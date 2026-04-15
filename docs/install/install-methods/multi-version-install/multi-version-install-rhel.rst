@@ -10,7 +10,7 @@ Red Hat Enterprise Linux multi-version installation
 
 .. caution::
 
-    Ensure that the :doc:`/install/prerequisites` are met before installing.
+    Ensure that the :doc:`/install/prerequisites` are met.
 
 .. _rhel-multi-register-rocm:
 
@@ -20,7 +20,7 @@ Registering ROCm repositories
 .. datatemplate:nodata::
 
    .. tab-set::
-      {% for os_version in config.html_context['rhel_version_numbers'] %}
+      {% for os_version in config.html_context['rhel_multi_versions'] %}
       {% set os_major, _  = os_version.split('.') %}
       .. tab-item:: RHEL {{ os_version }}
             :sync: rhel-{{ os_version }}
@@ -29,7 +29,7 @@ Registering ROCm repositories
                :substitutions:
 
                # Note: There is NO trailing .0 in the patch version for repositories
-               for ver in |rocm_multi_versions|; do
+               for ver in |rocm_multi_versions_new|; do
                sudo tee --append /etc/yum.repos.d/rocm.repo <<EOF
                [rocm-$ver]
                name=ROCm $ver repository
@@ -66,7 +66,7 @@ installation to avoid conflicts.
    :substitutions:
 
    # Note: There IS a trailing .0 in the patch version for packages
-   for ver in |rocm_multi_versions_package_versions|; do
+   for ver in |rocm_multi_versions_package_versions_new|; do
          sudo dnf install rocm$ver
    done
 
@@ -98,7 +98,7 @@ Uninstall specific meta packages
    :substitutions:
 
    # Note: There IS a trailing .0 in the patch version for packages
-   for ver in |rocm_multi_versions_package_versions|; do
+   for ver in |rocm_multi_versions_package_versions_new|; do
       sudo dnf remove rocm$ver
    done
 
@@ -109,7 +109,7 @@ Uninstall ROCm packages
    :substitutions:
 
    # Note: There IS a trailing .0 in the patch version for packages
-   for ver in |rocm_multi_versions_package_versions|; do
+   for ver in |rocm_multi_versions_package_versions_new|; do
       sudo dnf remove rocm-core$ver amdgpu-core$ver
    done
 

@@ -7,11 +7,11 @@ TensorFlow on ROCm installation
 ********************************************************************************
 
 `TensorFlow <https://tensorflow.org>`__ is an open-source library for solving machine learning,
-deep learning, and AI problems. 
+deep learning, and AI problems.
 
-This topic covers setup instructions and the necessary files to build, test, and run 
+This topic covers setup instructions and the necessary files to build, test, and run
 TensorFlow with ROCm support in a Docker environment. To learn more about TensorFlow
-on ROCm, including its use cases, recommendations, as well as hardware and software compatibility, 
+on ROCm, including its use cases, recommendations, as well as hardware and software compatibility,
 see :doc:`rocm:compatibility/ml-compatibility/tensorflow-compatibility`.
 
 .. note::
@@ -27,6 +27,10 @@ see :doc:`rocm:compatibility/ml-compatibility/tensorflow-compatibility`.
 
     * - ROCm version
       - TensorFlow version
+    * - 7.2.x
+      - 2.20.0, 2.19.1, 2.18.1
+    * - 7.1.x
+      - 2.20.0, 2.19.1, 2.18.1
     * - 7.0.x
       - 2.19.1, 2.18.1, 2.17.1
     * - 6.4.x
@@ -52,9 +56,9 @@ To install TensorFlow for ROCm, you have the following options:
 Use a prebuilt Docker image with TensorFlow pre-installed
 --------------------------------------------------------------------------------
 
-The recommended setup to get a TensorFlow environment is through Docker, as it avoids potential installation issues.  
+The recommended setup to get a TensorFlow environment is through Docker, as it avoids potential installation issues.
 The tested, prebuilt image includes TensorFlow, ROCm, and other dependencies. See :ref:`tensorflow-docker-support`.
-To install ROCm on bare metal, follow :doc:`/install/install-overview`. 
+To install ROCm on bare metal, follow :doc:`/install/install-overview`.
 
 1. Download the latest public `TensorFlow Docker image <https://hub.docker.com/r/rocm/tensorflow>`__.
 
@@ -75,7 +79,8 @@ To install ROCm on bare metal, follow :doc:`/install/install-overview`.
            --group-add video \
            --cap-add=SYS_PTRACE \
            --security-opt seccomp=unconfined \
-           rocm/tensorflow:latest
+           rocm/tensorflow:latest \
+           /bin/bash
 
 .. _tensorflow-docker-support:
 
@@ -84,11 +89,11 @@ Docker image support
 
 AMD validates and publishes ready-made TensorFlow images with ROCm backends on
 Docker Hub. The following Docker image tags and associated inventories are
-validated for ROCm 7.0.0.
+validated for ROCm 7.2.1.
 
 .. tab-set::
 
-   .. tab-item:: tensorflow-rocm 2.19.1
+   .. tab-item:: tensorflow-rocm 2.20.0
       :selected:
 
       .. tab-set::
@@ -99,7 +104,7 @@ validated for ROCm 7.0.0.
 
             .. code-block:: shell
 
-               docker pull rocm/tensorflow:rocm7.0-py3.12-tf2.19-dev
+               docker pull rocm/tensorflow:rocm7.2.1-py3.12-tf2.20-dev
 
             .. rubric:: Additional software components
 
@@ -110,12 +115,11 @@ validated for ROCm 7.0.0.
                  - Tensorboard
 
                * - 24.04
-                 - `2.19.0 <https://github.com/tensorflow/tensorboard/tree/2.19.0>`__
+                 - `2.20.0 <https://github.com/tensorflow/tensorboard/tree/2.20.0>`__
 
             See
-            ``rocm/tensorflow:rocm7.0-py3.12-tf2.19-dev``
-            on `Docker Hub
-            <https://hub.docker.com/layers/rocm/tensorflow/rocm7.0-py3.12-tf2.19-dev/images/sha256-f4459ce110c23356552f17875451332d2f76a3d6616f02a6256cd0286083172d>`__.
+            ``rocm/tensorflow:rocm7.2.1-py3.12-tf2.20-dev``
+            on `Docker Hub <https://hub.docker.com/layers/rocm/tensorflow/rocm7.2.1-py3.12-tf2.20-dev/images/sha256-28fc85eee6f3233646f308b31ab4533e587d808ec8594ee3575be1a6c67ee9d5>`__.
 
          .. tab-item:: Python 3.10
 
@@ -123,7 +127,34 @@ validated for ROCm 7.0.0.
 
             .. code-block:: shell
 
-               docker pull rocm/tensorflow:rocm7.0-py3.10-tf2.19-dev
+               docker pull rocm/tensorflow:rocm7.2.1-py3.10-tf2.20-dev
+
+            .. rubric:: Additional software components
+
+            .. list-table::
+               :header-rows: 1
+
+               * - Ubuntu
+                 - Tensorboard
+
+               * - 22.04
+                 - `2.20.0 <https://github.com/tensorflow/tensorboard/tree/2.20.0>`__
+
+            See
+            ``rocm/tensorflow:rocm7.2.1-py3.10-tf2.20-dev``
+            on `Docker Hub <https://hub.docker.com/layers/rocm/tensorflow/rocm7.2.1-py3.10-tf2.20-dev/images/sha256-8461e97db49ce352c670a4dacc0d7e8101942b4302ff329cfe20279c0b2af326>`__.
+
+   .. tab-item:: tensorflow-rocm 2.19.1
+
+      .. tab-set::
+
+         .. tab-item:: Python 3.12
+
+            .. rubric:: Docker pull tag
+
+            .. code-block:: shell
+
+               docker pull rocm/tensorflow:rocm7.2.1-py3.12-tf2.19-dev
 
             .. rubric:: Additional software components
 
@@ -137,9 +168,31 @@ validated for ROCm 7.0.0.
                  - `2.19.0 <https://github.com/tensorflow/tensorboard/tree/2.19.0>`__
 
             See
-            ``rocm/tensorflow:rocm7.0-py3.10-tf2.19-dev``
-            on `Docker Hub
-            <https://hub.docker.com/layers/rocm/tensorflow/rocm7.0-py3.10-tf2.19-dev/images/sha256-f08a5d7859245da91816c2d7161f98e959848eb2146bd607082d7d7bc785c755>`__.
+            ``rocm/tensorflow:rocm7.2.1-py3.12-tf2.19-dev``
+            on `Docker Hub <https://hub.docker.com/layers/rocm/tensorflow/rocm7.2.1-py3.12-tf2.19-dev/images/sha256-537976cb4a53953456bdd3e273291cf97de41657e7bb8b0926a6501d33c0e5b1>`__.
+
+         .. tab-item:: Python 3.10
+
+            .. rubric:: Docker pull tag
+
+            .. code-block:: shell
+
+               docker pull rocm/tensorflow:rocm7.2.1-py3.10-tf2.19-dev
+
+            .. rubric:: Additional software components
+
+            .. list-table::
+               :header-rows: 1
+
+               * - Ubuntu
+                 - Tensorboard
+
+               * - 22.04
+                 - `2.19.0 <https://github.com/tensorflow/tensorboard/tree/2.19.0>`__
+
+            See
+            ``rocm/tensorflow:rocm7.2.1-py3.10-tf2.19-dev``
+            on `Docker Hub <https://hub.docker.com/layers/rocm/tensorflow/rocm7.2.1-py3.10-tf2.19-dev/images/sha256-1691a5741e07ea86e0fb06f02d780977b30fafb80d277899c11e318d30b5ab1b>`__.
 
    .. tab-item:: tensorflow-rocm 2.18.1
 
@@ -151,7 +204,7 @@ validated for ROCm 7.0.0.
 
             .. code-block:: shell
 
-               docker pull rocm/tensorflow:rocm7.0-py3.12-tf2.18-dev
+               docker pull rocm/tensorflow:rocm7.2.1-py3.12-tf2.18-dev
 
             .. rubric:: Additional software components
 
@@ -165,9 +218,8 @@ validated for ROCm 7.0.0.
                  - `2.18.0 <https://github.com/tensorflow/tensorboard/tree/2.18.0>`__
 
             See
-            ``rocm/tensorflow:rocm7.0-py3.12-tf2.18-dev``
-            on `Docker Hub
-            <https://hub.docker.com/layers/rocm/tensorflow/rocm7.0-py3.12-tf2.18-dev/images/sha256-32ab48343f95cf71c00a072e8b21535761d883973e60fb00a3ac0e5cb85f255a>`__.
+            ``rocm/tensorflow:rocm7.2.1-py3.12-tf2.18-dev``
+            on `Docker Hub <https://hub.docker.com/layers/rocm/tensorflow/rocm7.2.1-py3.12-tf2.18-dev/images/sha256-af2a4396915f2574e34cbb9c5c7ad08c5332e42901000cb041b602baa7ac3e60>`__.
 
          .. tab-item:: Python 3.10
 
@@ -175,7 +227,7 @@ validated for ROCm 7.0.0.
 
             .. code-block:: shell
 
-               docker pull rocm/tensorflow:rocm7.0-py3.10-tf2.18-dev
+               docker pull rocm/tensorflow:rocm7.2.1-py3.10-tf2.18-dev
 
             .. rubric:: Additional software components
 
@@ -189,61 +241,8 @@ validated for ROCm 7.0.0.
                  - `2.18.0 <https://github.com/tensorflow/tensorboard/tree/2.18.0>`__
 
             See
-            ``rocm/tensorflow:rocm7.0-py3.10-tf2.18-dev``
-            on `Docker Hub
-            <https://hub.docker.com/layers/rocm/tensorflow/rocm7.0-py3.10-tf2.18-dev/images/sha256-9159adab4e5b99b49dfb3cc5e25ed4cef7b734efc9b8efccb7007553cf0094d1>`__.
-
-   .. tab-item:: tensorflow-rocm 2.17.1
-
-      .. tab-set::
-
-         .. tab-item:: Python 3.12
-
-            .. rubric:: Docker pull tag
-
-            .. code-block:: shell
-
-               docker pull rocm/tensorflow:rocm7.0-py3.12-tf2.17-dev
-
-            .. rubric:: Additional software components
-
-            .. list-table::
-               :header-rows: 1
-
-               * - Ubuntu
-                 - Tensorboard
-
-               * - 24.04
-                 - `2.17.1 <https://github.com/tensorflow/tensorboard/tree/2.17.1>`__
-
-            See
-            ``rocm/tensorflow:rocm7.0-py3.12-tf2.17-dev``
-            on `Docker Hub
-            <https://hub.docker.com/layers/rocm/tensorflow/rocm7.0-py3.12-tf2.17-dev/images/sha256-8746320f65f92f1ea971f4f7d2603b0ba0bb62840c70711f179a499b2b11e86f>`__.
-
-         .. tab-item:: Python 3.10
-
-            .. rubric:: Docker pull tag
-
-            .. code-block:: shell
-
-               docker pull rocm/tensorflow:rocm7.0-py3.10-tf2.17-dev
-
-            .. rubric:: Additional software components
-
-            .. list-table::
-               :header-rows: 1
-
-               * - Ubuntu
-                 - Tensorboard
-
-               * - 22.04
-                 - `2.17.1 <https://github.com/tensorflow/tensorboard/tree/2.17.1>`__
-
-            See
-            ``rocm/tensorflow:rocm7.0-py3.10-tf2.17-dev``
-            on `Docker Hub
-            <https://hub.docker.com/layers/rocm/tensorflow/rocm7.0-py3.10-tf2.17-dev/images/sha256-f28ea65f921a76b8e0e22d9d0bb123ff06b3f68059710196e452c1080a4e4cd6>`__.
+            ``rocm/tensorflow:rocm7.2.1-py3.10-tf2.18-dev``
+            on `Docker Hub <https://hub.docker.com/layers/rocm/tensorflow/rocm7.2.1-py3.10-tf2.18-dev/images/sha256-c44a93374a3681b5f4717e6a24cd4d9632cf8c89802ba286a43cced78219f5dc>`__.
 
 .. _install-tensorflow-wheels:
 
@@ -293,7 +292,7 @@ Run the following sample code to load the MNIST dataset, then train and evaluate
    import tensorflow as tf
    print("TensorFlow version:", tf.__version__)
    mnist = tf.keras.datasets.mnist
-   
+
    (x_train, y_train), (x_test, y_test) = mnist.load_data()
    x_train, x_test = x_train / 255.0, x_test / 255.0
    model = tf.keras.models.Sequential([
@@ -318,3 +317,4 @@ on this dataset.
 .. image:: ../../data/install/tensorflow-install/tensorflow-test-output.png
    :alt: Example output of TensorFlow MNIST training example
    :align: center
+
