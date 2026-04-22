@@ -10,7 +10,7 @@ Quick start installation guide
 
 .. note::
 
-    See `Use ROCm on Radeon and Ryzen <https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/index.html>`_ for instructions on installing ROCm on systems with AMD Radeon GPUs or Ryzen APUs for graphics workloads.
+    See `Use ROCm on Radeon and Ryzen <https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/index.html>`_ for instructions on installing ROCm on systems with AMD Radeon™ GPUs or Ryzen™ APUs for graphics workloads.
 
 Before proceeding, ensure your kernel meets the :ref:`ROCm system requirements <supported_distributions>`. Then select your operating system and version, and run the provided commands to install the AMD GPU and ROCm. 
 
@@ -85,7 +85,7 @@ Register repositories
                        {%- else -%}
                        sudo dnf install https://repo.radeon.com/amdgpu-install/|amdgpu_version|/rhel/{{ os_major }}/amdgpu-install-|amdgpu_install_version|.el{{ os_major }}.noarch.rpm
                        {%- endif %}
-                       sudo sed -i "s/\/30.30.2/\/30.30.1/" /etc/yum.repos.d/amdgpu.repo
+                       sudo sed -i "s/\/30.30.2/\/30.30.1/;s/AMDGPU 30.30.2/AMDGPU 30.30.1/" /etc/yum.repos.d/amdgpu.repo
                        sudo sed -i "s|graphics/7\.2\.2|graphics/7.2.1|;s|AMD Graphics 7.2.2|AMD Graphics 7.2.1|" /etc/yum.repos.d/rocm.repo
                        sudo dnf clean all
 
@@ -111,7 +111,7 @@ Register repositories
                        {%- else -%}
                        sudo dnf install https://repo.radeon.com/amdgpu-install/|amdgpu_version|/el/{{ os_major }}/amdgpu-install-|amdgpu_install_version|.el{{ os_major }}.noarch.rpm
                        {%- endif %}
-                       sudo sed -i "s/\/30.30.2/\/30.30.1/" /etc/yum.repos.d/amdgpu.repo
+                       sudo sed -i "s/\/30.30.2/\/30.30.1/;s/AMDGPU 30.30.2/AMDGPU 30.30.1/" /etc/yum.repos.d/amdgpu.repo
                        sudo sed -i "s|graphics/7\.2\.2|graphics/7.2.1|;s|AMD Graphics 7.2.2|AMD Graphics 7.2.1|" /etc/yum.repos.d/rocm.repo
                        sudo dnf clean all
 
@@ -135,7 +135,7 @@ Register repositories
                        sudo SUSEConnect -p PackageHub/{{ os_version }}/x86_64
                        sudo zypper install zypper
                        sudo zypper --no-gpg-checks install https://repo.radeon.com/amdgpu-install/|amdgpu_version|/sle/{{ os_version }}/amdgpu-install-|amdgpu_install_version|.noarch.rpm
-                       sudo sed -i "s/\/30.30.2/\/30.30.1/" /etc/zypp/repos.d/amdgpu.repo
+                       sudo sed -i "s/\/30.30.2/\/30.30.1/;s/AMDGPU 30.30.2/AMDGPU 30.30.1/" /etc/zypp/repos.d/amdgpu.repo
                        sudo sed -i "s|graphics/7.2.2|graphics/7.2.1|;s|AMD Graphics 7.2.2|AMD Graphics 7.2.1|" /etc/zypp/repos.d/rocm.repo
                        sudo zypper --gpg-auto-import-keys refresh
 
@@ -154,7 +154,7 @@ Register repositories
                        :substitutions:
 
                        sudo dnf install https://repo.radeon.com/amdgpu-install/|amdgpu_version|/el/{{ os_version }}/amdgpu-install-|amdgpu_install_version|.el{{ os_major }}.noarch.rpm
-                       sudo sed -i "s/\/30.30.2/\/30.30.1/" /etc/yum.repos.d/amdgpu.repo
+                       sudo sed -i "s/\/30.30.2/\/30.30.1/;s/AMDGPU 30.30.2/AMDGPU 30.30.1/" /etc/yum.repos.d/amdgpu.repo
                        sudo sed -i "s|graphics/7\.2\.2|graphics/7.2.1|;s|AMD Graphics 7.2.2|AMD Graphics 7.2.1|" /etc/yum.repos.d/rocm.repo
                        sudo dnf clean all
 
